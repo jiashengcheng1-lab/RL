@@ -1,0 +1,29 @@
+# ---- Large data (exceeds GitHub's 100 MB file limit) ----
+# Keep only the small sample in data/. Do NOT commit the full panel.
+alpha_talib_ti_features_multi_index.csv
+*.parquet
+data/*.csv
+!data/sample_alpha_features.csv
+
+# ---- Training artifacts ----
+results/
+*.pkl
+*.pt
+*.ckpt
+*.log
+checkpoints/
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+*.egg-info/
+.ipynb_checkpoints/
+
+# ---- OS / editor cruft ----
+.DS_Store
+__MACOSX/
+.idea/
+.vscode/

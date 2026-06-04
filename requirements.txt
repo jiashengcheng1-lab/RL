@@ -1,0 +1,13 @@
+# Core (required)
+numpy>=1.23
+pandas>=1.5
+scikit-learn>=1.1
+scipy>=1.9          # accelerates the Beta-Bernoulli block model; pure-Python fallback exists
+torch>=2.0
+
+# Optional — the code degrades gracefully if these are absent
+gymnasium>=0.28     # or `gym`; only used for space types, a stand-in is built in
+tqdm>=4.64          # prefill progress bar
+plotext>=5.2        # terminal training/eval plots
+# mpi4py>=3.1        # multi-process PPO rollouts; needs a system MPI (e.g. OpenMPI).
+                     # Uncomment only if you run run_train_ppo.py with --procs > 1.
