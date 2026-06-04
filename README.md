@@ -191,6 +191,10 @@ python run_train_ppo.py \
     --data data/sample_alpha_features.csv \
     --use-2d --procs 1 --train-epochs 10 --steps-per-epoch 2048
 
+python run_train_ppo.py \
+    --data data/sample_alpha_features.csv \
+    --procs 1 --use-2d --train-epochs 4000 --test-episodes 2 --horizon 0
+
 # 3) Train SAC (MLP-over-flattened-obs baseline)
 python run_train_sac.py --data data/sample_alpha_features.csv --use-2d --epochs 10
 ```
