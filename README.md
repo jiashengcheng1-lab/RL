@@ -29,7 +29,7 @@ network were built specifically for the cross-sectional portfolio problem.
   NAV that beat two baselines: equal-weight rebalanced and buy-and-hold.
 - **Honesty.** With a single historical price path, RL trading overfits easily.
   The controls used here, the residual risk, and the knobs to tighten are
-  documented in [`docs/OVERFITTING.md`](docs/OVERFITTING.md).
+  documented in [`OVERFITTING.md`](OVERFITTING.md).
 
 ---
 
@@ -118,10 +118,8 @@ five axes:
 ├── requirements.txt
 ├── LICENSE
 ├── .gitignore
-├── data/
-│   └── sample_alpha_features.csv     # small runnable sample (6 assets, ~260 days)
-├── docs/
-│   └── OVERFITTING.md                # diagnosis + mitigation playbook
+├── sample_alpha_features.csv     # small runnable sample (6 assets, ~260 days)
+├── OVERFITTING.md                # diagnosis + mitigation playbook
 │
 ├── CryptoTradingEnv.py               # the environment (LONG / MultiIndex, 2D obs)
 ├── env_starter.py                    # look-ahead-safe split/scale + prefill
@@ -170,7 +168,7 @@ The environment expects **long-format** data: columns `timestamp`, `tic`, a
 `Close` (and ideally `Close_raw`) execution price, and any number of feature
 columns. Rows are one `(timestamp, tic)` observation.
 
-- **Runnable sample:** `data/sample_alpha_features.csv` — 6 assets
+- **Runnable sample:** `sample_alpha_features.csv` — 6 assets
   (BTC, ETH, MARA, RIOT, NVDA, EQIX), ~260 daily bars, all feature columns. Use
   it to verify the pipeline end to end.
 - **Full dataset:** the full panel (33 assets, 2020–2026, ~588 features) is
@@ -184,19 +182,19 @@ columns. Rows are one `(timestamp, tic)` observation.
 
 ```bash
 # 1) Smoke test the environment wiring on the sample
-python test_integration_long_env.py --data data/sample_alpha_features.csv --steps 200
+python test_integration_long_env.py --data sample_alpha_features.csv --steps 200
 
 # 2) Train PPO with the Set-Transformer policy (auto-selected for 2D obs)
 python run_train_ppo.py \
-    --data data/sample_alpha_features.csv \
+    --data sample_alpha_features.csv \
     --use-2d --procs 1 --train-epochs 10 --steps-per-epoch 2048
 
 python run_train_ppo.py \
-    --data data/sample_alpha_features.csv \
+    --data sample_alpha_features.csv \
     --procs 1 --use-2d --train-epochs 4000 --test-episodes 2 --horizon 0
 
 # 3) Train SAC (MLP-over-flattened-obs baseline)
-python run_train_sac.py --data data/sample_alpha_features.csv --use-2d --epochs 10
+python run_train_sac.py --data sample_alpha_features.csv --use-2d --epochs 10
 ```
 
 The PPO runner is the maintained entry point. The Set-Transformer backend is
@@ -218,7 +216,7 @@ on a time block the agent never trained or tuned on:
 
 A run is considered a *failure* (overfit) when in-sample reward rises while the
 out-of-sample Sharpe stagnates or falls. That gap is the headline diagnostic in
-[`docs/OVERFITTING.md`](docs/OVERFITTING.md).
+[`OVERFITTING.md`](OVERFITTING.md).
 
 ---
 
@@ -229,7 +227,7 @@ out-of-sample Sharpe stagnates or falls. That gap is the headline diagnostic in
 - **Test split.** `neutralization` currently returns train/val and *drops* the
   final test block to preserve a legacy return signature. Re-enable a true
   held-out test before reporting any out-of-sample number (one-line fix noted in
-  `docs/OVERFITTING.md`).
+  `OVERFITTING.md`).
 - **Daily bars only.** No intraday microstructure; execution is modeled at the
   daily close with a proportional + fixed fee and a min-notional constraint.
 - **SAC runner.** `run_train_sac.py` passes an `agent=` kwarg that
