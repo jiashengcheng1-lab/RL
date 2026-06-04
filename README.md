@@ -140,12 +140,6 @@ five axes:
 └── test_integration_long_env.py      # wiring / correctness smoke test
 ```
 
-> **Note on duplicates.** Several files ship in both a current and a legacy form
-> (e.g. `CryptoTradingEnv.py` vs `CryptoTradingEnv_.py`, `env_starter.py` vs
-> `_env_starter.py`, `tune_ppo.py` vs `tune_ppo_.py`). The current files are the
-> ones referenced by the runners above. Legacy `_`-suffixed/prefixed files are
-> kept only for diffing and should be deleted before a clean submission.
-
 ---
 
 ## Installation
