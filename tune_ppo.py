@@ -88,7 +88,6 @@ def main():
         )
 
         prefill_replay_buffer_and_scalers(
-            agent=agent,
             env=env,
             test_env=test_env,
             replay_buffer=None,

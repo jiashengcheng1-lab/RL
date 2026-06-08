@@ -12,7 +12,7 @@ On the full panel, `neutralization(start_step_train=0, train_ratio=0.7)` yields:
 |-------|-----------|-------|
 | Train | **907**   | 2020-12-23 → 2024-08-02 |
 | Val   | 194       | 2024-08-05 → 2025-05-13 |
-| Test  | 196       | *computed then dropped* |
+| Test  | 196       | *returned as held-out (7th value)* |
 
 Against those **907 training days** the agent sees:
 
@@ -49,14 +49,18 @@ The single-path problem dominates everything else. Two practical options:
 
 Either one is worth more than every other item on this list combined.
 
-### 2. Restore a true held-out test split
+### 2. Use the held-out test split (now wired)
 
-`env_starter.neutralization` builds `test_df` and then throws it away to keep a
-legacy 6-tuple return order. Re-enable it and **never tune on it**:
+`env_starter.neutralization` builds `test_df` and now returns it as the final
+value (appended last so existing `train_df, val_df, *_ = ...` callers are
+unaffected). **Never tune on it:**
 
 ```python
-# in neutralization(...), instead of returning train_df, val_df, ...
-return train_df, val_df, test_df, train_price, val_price, train_scaler, test_scaler
+# neutralization(...) now returns:
+return train_df, val_df, train_price, val_price, train_scaler, test_scaler, test_df
+
+# grab it with:
+train_df, val_df, *_ , test_df = neutralization(df_raw, start_step_train=0, train_ratio=0.7)
 ```
 
 Tune on validation, report once on test at the very end. A number you tuned

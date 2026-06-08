@@ -54,7 +54,6 @@ def main():
 
     # fit running action scaler for get_state
     prefill_replay_buffer_and_scalers(
-        agent=None,
         env=env,
         test_env=test_env,
         replay_buffer=None,

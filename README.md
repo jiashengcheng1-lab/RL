@@ -218,15 +218,8 @@ out-of-sample Sharpe stagnates or falls. That gap is the headline diagnostic in
 
 - **Single price path.** The model is trained on one realized history. This is
   the dominant overfitting risk; see the mitigation playbook.
-- **Test split.** `neutralization` currently returns train/val and *drops* the
-  final test block to preserve a legacy return signature. Re-enable a true
-  held-out test before reporting any out-of-sample number (one-line fix noted in
-  `OVERFITTING.md`).
 - **Daily bars only.** No intraday microstructure; execution is modeled at the
   daily close with a proportional + fixed fee and a min-notional constraint.
-- **SAC runner.** `run_train_sac.py` passes an `agent=` kwarg that
-  `prefill_replay_buffer_and_scalers` does not accept; remove it (the PPO runner
-  already does) before running SAC.
 
 ---
 

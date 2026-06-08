@@ -220,13 +220,14 @@ def neutralization(
     """
     Drop-in neutralization that outputs LONG *UNSCALED* frames (MultiIndex timestamp,tic).
 
-    Returns (same count/order as your current wide code):
+    Returns:
         train_data_unscaled,
         validation_data_unscaled,
         train_price_data,
         validation_price_data,
         train_scaler,
-        test_scaler
+        test_scaler,
+        test_data_unscaled        # held-out test block (never trained/tuned on)
     """
     if data is None:
         default_path = "/mnt/data/dataset.csv"
@@ -325,8 +326,9 @@ def neutralization(
     train_price = _pivot_close(train_df, close_col="Close_raw")
     val_price   = _pivot_close(val_df, close_col="Close_raw")
 
-    # Return UNSCALED frames
-    return train_df, val_df, train_price, val_price, train_scaler, test_scaler
+    # Return UNSCALED frames (test_df is the held-out block, appended last so
+    # existing `train_df, val_df, *_ = neutralization(...)` callers are unaffected)
+    return train_df, val_df, train_price, val_price, train_scaler, test_scaler, test_df
 
 
 # -------------------------------------------------------------------

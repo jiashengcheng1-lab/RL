@@ -85,7 +85,6 @@ def main():
     )
 
     prefill_replay_buffer_and_scalers(
-        agent=sac_agent,
         env=env,
         test_env=test_env,
         replay_buffer=replay_buffer,

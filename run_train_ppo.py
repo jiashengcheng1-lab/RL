@@ -76,7 +76,7 @@ def main():
     # Split + scale (no look-ahead: scaler fit on train then applied to validation)
     # neutralization returns 6 items; we only need the scaled LONG frames.
     # train_df, val_df, *_ = neutralization(df_raw, start_step_train=0, train_ratio=0.7) # Original.
-    train_df, val_df, train_price, val_price, scaler, test_scaler = neutralization(df_raw, start_step_train=0, train_ratio=0.7)
+    train_df, val_df, train_price, val_price, scaler, test_scaler, test_df = neutralization(df_raw, start_step_train=0, train_ratio=0.7)
     print(
         f'train_df: {train_df} | val_df: {val_df}'
     )
