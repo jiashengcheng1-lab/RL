@@ -149,9 +149,8 @@ python -m venv .venv && source .venv/bin/activate     # Python 3.10+
 pip install -r requirements.txt
 ```
 
-`gym`/`gymnasium`, `tqdm`, `plotext`, and `mpi4py` are optional — the code falls
-back gracefully when they are absent (MPI degrades to single-process, plots are
-skipped). Install `mpi4py` (and a system MPI such as OpenMPI) only if you want
+`mpi4py` is optional — the code falls
+back gracefully when it is absent (MPI degrades to single-process). Install `mpi4py` (and a system MPI such as OpenMPI) only if you want
 multi-process PPO rollouts.
 
 ---
