@@ -207,7 +207,7 @@ class PPOAgent(Agent):
             # Linear decay: lr = initial_lr * (1 - step/total_updates)
             lr_lambda = lambda step: max(0.0, 1.0 - step/total_updates)
             self.scheduler = LambdaLR(
-                self.v_optimizer, lr_lambda=lr_lambda, verbose=True
+                self.v_optimizer, lr_lambda=lr_lambda, # verbose=True
             )
 
         elif scheduler_type == "step":
