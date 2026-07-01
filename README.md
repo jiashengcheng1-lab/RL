@@ -174,10 +174,7 @@ columns. Rows are one `(timestamp, tic)` observation.
 ## Quickstart
 
 ```bash
-# 1) Smoke test the environment wiring on the sample
-python test_integration_long_env.py --data sample_alpha_features.csv --steps 200
-
-# 2) Train PPO with the Set-Transformer policy (auto-selected for 2D obs)
+# 1) Train PPO with the Set-Transformer policy (auto-selected for 2D obs)
 python run_train_ppo.py \
     --data sample_alpha_features.csv \
     --use-2d --procs 1 --train-epochs 10 --steps-per-epoch 2048
@@ -186,7 +183,7 @@ python run_train_ppo.py \
     --data sample_alpha_features.csv \
     --procs 1 --use-2d --train-epochs 4000 --test-episodes 2 --horizon 0
 
-# 3) Train SAC (MLP-over-flattened-obs baseline)
+# 2) Train SAC (MLP-over-flattened-obs baseline)
 python run_train_sac.py --data sample_alpha_features.csv --use-2d --epochs 10
 ```
 
